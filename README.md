@@ -26,7 +26,9 @@ High-performance backend for **Ongold** gold trading platform.
 
 ---
 
-## 🏗️ System Architecture
+## 🏗️ System Architecture (Monolithic)
+
+> **Monolithic Architecture** — Single deployable unit with modular internal layers.
 
 ```mermaid
 graph TB
@@ -35,31 +37,33 @@ graph TB
         B[Admin Dashboard]
     end
     
-    subgraph Backend
-        C[Go API Server<br/>Gin/Echo]
-        D[WebSocket Hub<br/>gorilla/websocket]
-        E[Order Engine<br/>Matching Logic]
+    subgraph "Monolithic Go Server"
+        C[API Layer<br/>Gin/Echo Routes]
+        D[Service Layer<br/>Business Logic]
+        E[Repository Layer<br/>Data Access]
+        F[WebSocket Hub]
+        G[Order Engine]
     end
     
     subgraph Data
-        F[(PostgreSQL<br/>Users/Wallets/Orders)]
-        G[(Redis<br/>Cache/Session/Locks)]
+        H[(PostgreSQL)]
+        I[(Redis)]
     end
     
     subgraph External
-        H[Gold Price API]
-        I[Payment Gateway]
+        J[Gold Price API]
+        K[Payment Gateway]
     end
     
     A --> C
     B --> C
-    A --> D
-    B --> D
-    C --> E
-    C --> F
-    C --> G
+    C --> D
+    D --> E
     D --> G
-    E --> F
-    E --> G
-    C --> H
-    C --> I
+    C --> F
+    E --> H
+    E --> I
+    G --> H
+    G --> I
+    D --> J
+    D --> K
