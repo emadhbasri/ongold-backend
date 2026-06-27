@@ -30,6 +30,8 @@ High-performance backend for **Ongold** gold trading platform.
 
 > **Monolithic Architecture** — Single deployable unit with modular internal layers.
 
+## 🏗️ System Architecture (Monolithic)
+
 ```mermaid
 graph TB
     subgraph Clients
@@ -63,7 +65,10 @@ graph TB
     C --> F
     E --> H
     E --> I
-    G --> H
     G --> I
-    D --> J
-    D --> K
+    G --> H
+    F --> A
+    F --> B
+    C --> J
+    C --> K
+```
